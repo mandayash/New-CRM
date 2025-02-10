@@ -60,20 +60,20 @@ const LevelStats = () => {
               backgroundImage: getGradientStyle(level)
             }}
           >
-            <span className="text-xs font-bold text-text">{percentage}%</span>
+            <span className="text-sm font-bold text-text">{percentage}%</span>
           </div>
-          <span className="text-xs font-medium">{level}</span>
+          <span className="text-sm font-medium">{level}</span>
         </div>
-        <span className="text-xs font-bold">{count.toLocaleString()}</span>
+        <span className="text-sm font-bold">{count.toLocaleString()}</span>
       </div>
     );
   };
 
   return (
-    <Card>
+    <Card className="w-full h-full">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-base font-medium">Statistik Level Poin</CardTitle>
+          <CardTitle className="text-lg font-medium text-primary">Statistik Level Poin</CardTitle>
           <select className="border rounded-lg px-3 py-2 text-sm">
             <option>Tahun Ini</option>
             <option>2024</option>
@@ -131,7 +131,7 @@ const LevelStats = () => {
           </ResponsiveContainer>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
             <p className="text-[#303030] text-sm">Total Poin</p>
-            <p className="text-[#CF0000] text-lg font-bold">{totalPoin.toLocaleString()}</p>
+            <p className="text-primary text-xl font-bold">{totalPoin.toLocaleString()}</p>
           </div>
         </div>
 

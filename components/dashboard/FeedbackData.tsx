@@ -75,8 +75,8 @@ const FeedbackTable = () => {
     
     return (
       <div className={combineClasses(baseStyles, className || "bg-[#F0F1F3]")}>
-        <p className="text-sm text-gray-600">{label}</p>
-        <p className="text-[20px] font-bold mt-1">{value.toLocaleString()}</p>
+        <p className="text-sm text-gray-600 font-bold">{label}</p>
+        <p className="text-[30px] font-bold mt-1">{value.toLocaleString()}</p>
       </div>
     );
   };
@@ -85,7 +85,7 @@ const FeedbackTable = () => {
     <Card className="w-full">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-base font-medium">Feedback Terbaru</CardTitle>
+          <CardTitle className="text-lg font-medium text-primary">Feedback Terbaru</CardTitle>
           <div className="flex items-center gap-2">
             <select className="border rounded-lg px-3 py-2 text-sm">
               <option>Tahun Ini</option>

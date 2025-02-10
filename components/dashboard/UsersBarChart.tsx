@@ -11,7 +11,6 @@ const UsersBarChart: React.FC = () => {
   }, []);
 
   const Chart = () => {
-    // Kita import Recharts hanya jika di client side
     const {
       BarChart,
       Bar,
@@ -52,47 +51,58 @@ const UsersBarChart: React.FC = () => {
     };
 
     return (
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={data}
-          margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D64017" />
-              <stop offset="100%" stopColor="#FFB547" />
-            </linearGradient>
-          </defs>
-          <CartesianGrid vertical={false} strokeDasharray="3 3" />
-          <XAxis 
-            dataKey="month"
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: '#666' }}
-          />
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: '#666' }}
-            tickFormatter={(value: number) => `${value/1000}K`}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Bar
-            dataKey="users"
-            fill="url(#colorGradient)"
-            radius={[4, 4, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="w-full overflow-auto">
+        <div className="min-w-[800px] h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+              barSize={40}
+            >
+              <defs>
+                <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#D64017" />
+                  <stop offset="100%" stopColor="#FFB547" />
+                </linearGradient>
+              </defs>
+              <CartesianGrid 
+                vertical={false} 
+                strokeDasharray="3 3"
+                stroke="#E4E4E4"
+              />
+              <XAxis 
+                dataKey="month"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#666', fontSize: 12 }}
+                dy={10}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#666', fontSize: 12 }}
+                tickFormatter={(value: number) => `${value/1000}K`}
+                width={45}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar
+                dataKey="users"
+                fill="url(#colorGradient)"
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     );
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="w-full h-full">
+      <CardHeader className="px-6 pt-6">
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-lg font-medium">Total Pengguna Aplikasi</CardTitle>
+            <CardTitle className="text-lg font-medium text-primary">Total Pengguna Aplikasi</CardTitle>
             <div className="mt-1">
               <p className="text-3xl font-bold">1,121</p>
               <p className="text-sm text-gray-500">Total Pengguna</p>
@@ -105,14 +115,12 @@ const UsersBarChart: React.FC = () => {
           </select>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="h-[300px] w-full">
-          {isClient ? <Chart /> : (
-            <div className="w-full h-full flex items-center justify-center">
-              <p>Loading chart...</p>
-            </div>
-          )}
-        </div>
+      <CardContent className ="flex-1"> 
+        {isClient ? <Chart /> : (
+          <div className="w-full h-[300px] flex items-center justify-center">
+            <p>Loading chart...</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

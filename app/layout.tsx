@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import path from "path";
 import Sidebar from "@/components/layout/Sidebar";
 import Navbar from '@/components/layout/Header'
+import { SidebarProvider } from "@/context/SideBarContext";
 
 const sfProDisplay = localFont({
   src: [
@@ -42,13 +43,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sfProDisplay.variable} bg-light text-text font-sans`}>
+        <SidebarProvider>
         <Sidebar />
-        <main className="ml-[238px]"> 
+        <main className="flex-1 md:ml-[238px]"> 
           <Navbar />
           <div className="p-8">
             {children}
           </div>
         </main>
+        </SidebarProvider>
       </body>
     </html>
   );

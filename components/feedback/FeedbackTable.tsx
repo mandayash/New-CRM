@@ -1,9 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { Star, Pencil, Trash, ChevronLeft, ChevronRight, ArrowUpDown, FileText } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import DeleteModal from './DeleteModal';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
+
 
 import {
   Table,
@@ -30,7 +34,38 @@ interface FeedbackData {
 }
 
 const FeedbackTable = () => {
-    const router = useRouter();
+  const router = useRouter();
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [selectedFeedbacks, setSelectedFeedbacks] = useState<FeedbackData[]>([]);
+
+    // const handleDelete = (feedback: FeedbackData) => {
+    //   setSelectedFeedback(feedback);
+    //   setShowDeleteModal(true);
+
+    //   if (window.confirm('Apakah Anda yakin ingin menghapus feedback ini?')) {
+    //     setSelectedFeedback(feedback);
+    //     setShowDeleteModal(true);
+    //   }
+    // };
+  
+    // const handleCloseModal = () => {
+    //   setShowDeleteModal(false);
+    //   setSelectedFeedback(null);
+    // };
+
+    const handleDeleteClick = (feedback: FeedbackData) => {
+      setSelectedFeedbacks([feedback]);
+      setShowDeleteConfirmation(true);
+    };
+
+    const handleConfirmDelete = () => {
+      // Proses hapus data
+      setShowDeleteConfirmation(false);
+      setShowDeleteSuccess(true);
+      setSelectedFeedbacks([]);
+    };
+
   // Sample data
   const feedbacks: FeedbackData[] = [
     {
@@ -302,13 +337,28 @@ const FeedbackTable = () => {
                     >
                       <Pencil size={18} className="text-gray-600" />
                     </button>
-                    <button className="p-1 hover:bg-gray-100 rounded">
+                    <button 
+                      onClick={() => handleDeleteClick(feedback)}
+                      className="p-1 hover:bg-gray-100 rounded"
+                    >
                       <Trash size={18} className="text-gray-600" />
                     </button>
                   </>
                 )}
               </div>
             </TableCell>
+            {/* Modals */}
+            <DeleteConfirmationModal 
+              isOpen={showDeleteConfirmation}
+              onClose={() => setShowDeleteConfirmation(false)}
+              onConfirm={handleConfirmDelete}
+              selectedCount={selectedFeedbacks.length}
+            />
+
+            <DeleteModal 
+              isOpen={showDeleteSuccess}
+              onClose={() => setShowDeleteSuccess(false)}
+            />
             </TableRow>
           ))}
         </TableBody>

@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
+
 import {
   Table,
   TableBody,
@@ -10,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft,FileText, ChevronRight } from 'lucide-react'
 
 // Interface untuk data user
 interface User {
@@ -36,7 +38,27 @@ const users: User[] = [
     totalPoints: 1023,
     level: 'Gold Level'
   },
-  // ... tambahkan data dummy lainnya sesuai dengan desain
+  {
+    id: 'US-1245',
+    profileImage: '/path-to-image.jpg',
+    name: 'Koala Nabila Ramadhani',
+    email: 'anandita0211@gmail.com',
+    phone: '081234567891',
+    totalFeedback: 23,
+    totalPoints: 1123,
+    level: 'Gold Level'
+  },
+  {
+    id: 'US-1247',
+    profileImage: '/path-to-image.jpg',
+    name: 'Jerapah Nabila Ramadhani',
+    email: 'anandita0211@gmail.com',
+    phone: '081234567891',
+    totalFeedback: 23,
+    totalPoints: 1123,
+    level: 'Gold Level'
+  },
+  
 ]
 
 // Komponen badge untuk level
@@ -94,9 +116,13 @@ const UsersTable = () => {
                   <LevelBadge level={user.level} />
                 </TableCell>
                 <TableCell className="text-right">
-                  <button className="text-gray-500 hover:text-gray-700 text-sm px-4 py-2 border rounded-lg">
+                <Link 
+                    href={`/users/${user.id}/history`}
+                    className="flex items-center justify-end gap-2 text-gray-500 hover:text-gray-700 text-sm px-4 py-2 border rounded-lg"
+                >
+                    <FileText size={16} />
                     Lihat Riwayat
-                  </button>
+                </Link>
                 </TableCell>
               </TableRow>
             ))}
