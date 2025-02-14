@@ -70,40 +70,37 @@ const FeedbackTable = () => {
   ];
 
   const StatCard = ({ label, value, className }: { label: string; value: number; className?: string }) => {
-    // Base styles for the card
-    const baseStyles = "flex-1 px-4 py-3 rounded";
-    
     return (
-      <div className={combineClasses(baseStyles, className || "bg-[#F0F1F3]")}>
-        <p className="text-sm text-gray-600 font-bold">{label}</p>
-        <p className="text-[30px] font-bold mt-1">{value.toLocaleString()}</p>
+      <div className={combineClasses(
+        "flex-1 px-3 sm:px-4 py-3 rounded min-w-[180px]",
+        className || "bg-[#F0F1F3]"
+      )}>
+        <p className="text-xs sm:text-sm text-gray-600 font-bold line-clamp-1">{label}</p>
+        <p className="text-xl sm:text-2xl lg:text-[30px] font-bold mt-1">{value.toLocaleString()}</p>
       </div>
     );
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle className="text-lg font-medium text-primary">Feedback Terbaru</CardTitle>
-          <div className="flex items-center gap-2">
-            <select className="border rounded-lg px-3 py-2 text-sm">
-              <option>Tahun Ini</option>
-              <option>2024</option>
-              <option>2023</option>
-            </select>
-            <button className="border rounded-lg p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#667085" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#667085" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#667085" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
+    <Card className="w-full overflow-hidden">
+      <CardHeader className="px-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+          <div className="min-w-0 w-full sm:w-auto">
+            <CardTitle className="text-base sm:text-lg font-medium text-primary truncate">
+              Feedback Terbaru
+            </CardTitle>
           </div>
+          <select className="w-full sm:w-auto border rounded-lg px-3 py-2 text-xs sm:text-sm bg-white flex-shrink-0">
+            <option>Tahun Ini</option>
+            <option>2024</option>
+            <option>2023</option>
+          </select>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex gap-4 mb-6">
+
+      <CardContent className="px-4 sm:px-6">
+        {/* Stats Cards */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6 overflow-x-auto pb-2">
           <StatCard 
             label="Total Feedback" 
             value={feedbackStats.total} 
@@ -120,6 +117,7 @@ const FeedbackTable = () => {
           />
         </div>
 
+        {/* Feedback Table */}
         <div className="w-full overflow-auto rounded-lg border border-[#EAEAEA]">
           <table className="w-full min-w-[1000px] text-sm">
             <thead className="bg-[#EAEAEA]">

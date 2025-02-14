@@ -4,26 +4,31 @@
 
 import { ArrowLeft, Download, Maximize2, Star } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function FeedbackReplyDetail() {
+  const router = useRouter();
   return (
-    <div className="flex gap-6">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
       {/* Left Section - Message Content */}
-      <div className="flex-1 bg-white rounded-lg p-8">
+      <div className="flex-1 bg-white rounded-lg p-4 sm:p-8">
         {/* Header with back button */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <button className="hover:bg-gray-100 p-2 rounded-lg">
-              <ArrowLeft size={20} />
+            <button 
+              onClick={() => router.back()}
+              className="hover:bg-gray-100 p-1.5 sm:p-2 rounded-lg transition-colors"
+            >
+              <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
             </button>
-            <h2>Balasan Feedback</h2>
+            <h2 className="text-base sm:text-lg font-medium">Balasan Feedback</h2>
           </div>
-          <div className="flex gap-2">
-            <button className="hover:bg-gray-100 p-2 rounded-lg">
-              <Download size={20} />
+          <div className="flex gap-1 sm:gap-2">
+            <button className="hover:bg-gray-100 p-1.5 sm:p-2 rounded-lg transition-colors">
+              <Download size={18} className="sm:w-5 sm:h-5" />
             </button>
-            <button className="hover:bg-gray-100 p-2 rounded-lg">
-              <Maximize2 size={20} />
+            <button className="hover:bg-gray-100 p-1.5 sm:p-2 rounded-lg transition-colors">
+              <Maximize2 size={18} className="sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
@@ -35,7 +40,7 @@ export default function FeedbackReplyDetail() {
         <p className="text-gray-500 mb-6">14 September 2028, 07:00 AM</p>
 
         {/* Message Content */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-justify">
           <p>Hallo Anandita,</p>
           <p>
             Kami mohon maaf atas ketidaknyamanan yang Anda rasakan terkait suhu AC di dalam kereta,

@@ -39,21 +39,6 @@ const FeedbackTable = () => {
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [selectedFeedbacks, setSelectedFeedbacks] = useState<FeedbackData[]>([]);
 
-    // const handleDelete = (feedback: FeedbackData) => {
-    //   setSelectedFeedback(feedback);
-    //   setShowDeleteModal(true);
-
-    //   if (window.confirm('Apakah Anda yakin ingin menghapus feedback ini?')) {
-    //     setSelectedFeedback(feedback);
-    //     setShowDeleteModal(true);
-    //   }
-    // };
-  
-    // const handleCloseModal = () => {
-    //   setShowDeleteModal(false);
-    //   setSelectedFeedback(null);
-    // };
-
     const handleDeleteClick = (feedback: FeedbackData) => {
       setSelectedFeedbacks([feedback]);
       setShowDeleteConfirmation(true);
@@ -323,7 +308,7 @@ const FeedbackTable = () => {
                 {feedback.status === 'Selesai' ? (
                   // Ikon untuk feedback yang sudah selesai
                   <button
-                    onClick={() => router.push(`/feedback/${feedback.id}/reply`)}  // Update path
+                    onClick={() => router.push(`/feedback/${feedback.id}/reply`)}  
                     className="p-1 hover:bg-gray-100 rounded"
                   >
                     <FileText size={18} className="text-gray-600" />  

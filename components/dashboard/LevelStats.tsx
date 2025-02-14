@@ -36,7 +36,6 @@ const LevelStats = () => {
   ];
 
   const LevelRow = ({ level, count, percentage }: LevelData) => {
-    // Helper function untuk mendapatkan gradient style berdasarkan level
     const getGradientStyle = (level: string) => {
       switch (level) {
         case "Silver Level":
@@ -51,38 +50,44 @@ const LevelStats = () => {
     };
     
     return (
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4 min-w-[250px] sm:min-w-[300px]">
+        <div className="flex items-center gap-3 flex-1">
           {/* Percentage badge with gradient background */}
           <div 
-            className="px-3 py-1 rounded-lg"
+            className="px-2 sm:px-3 py-1 rounded-lg w-[40px] sm:w-[48px] text-center flex-shrink-0"
             style={{
               backgroundImage: getGradientStyle(level)
             }}
           >
-            <span className="text-sm font-bold text-text">{percentage}%</span>
+            <span className="text-xs sm:text-sm font-bold text-text">{percentage}%</span>
           </div>
-          <span className="text-sm font-medium">{level}</span>
+          <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{level}</span>
         </div>
-        <span className="text-sm font-bold">{count.toLocaleString()}</span>
+        <span className="text-xs sm:text-sm font-bold whitespace-nowrap">{count.toLocaleString()}</span>
       </div>
     );
   };
 
   return (
-    <Card className="w-full h-full">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle className="text-lg font-medium text-primary">Statistik Level Poin</CardTitle>
-          <select className="border rounded-lg px-3 py-2 text-sm">
+    <Card className="w-full h-full overflow-hidden">
+      <CardHeader className="px-4 sm:px-6 pt-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+          <div className="min-w-0 w-full sm:w-auto">
+            <CardTitle className="text-base sm:text-lg font-medium text-primary truncate">
+              Statistik Level Poin
+            </CardTitle>
+          </div>
+          <select className="w-full sm:w-auto border rounded-lg px-3 py-2 text-xs sm:text-sm bg-white flex-shrink-0">
             <option>Tahun Ini</option>
             <option>2024</option>
             <option>2023</option>
           </select>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="relative w-[160px] h-[160px] mx-auto mb-6">
+
+      <CardContent className="px6">
+        {/* Pie Chart Container */}
+        <div className="relative w-full max-w-[160px] aspect-square mx-auto mb-6">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <defs>
@@ -113,8 +118,8 @@ const LevelStats = () => {
                 dataKey="percentage"
                 cx="50%"
                 cy="50%"
-                innerRadius={50}
-                outerRadius={70}
+                innerRadius="60%"
+                outerRadius="80%"
                 startAngle={90}
                 endAngle={-270}
                 stroke="#FBFBFC"
@@ -129,16 +134,19 @@ const LevelStats = () => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <p className="text-[#303030] text-sm">Total Poin</p>
             <p className="text-primary text-xl font-bold">{totalPoin.toLocaleString()}</p>
           </div>
         </div>
 
-        <div className="space-y-[15px]">
-          {levels.map((level) => (
-            <LevelRow key={level.level} {...level} />
-          ))}
+        {/* Level Stats */}
+        <div className="overflow-x-auto pb-2">
+          <div className="space-y-4">
+            {levels.map((level) => (
+              <LevelRow key={level.level} {...level} />
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

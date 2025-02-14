@@ -1,124 +1,186 @@
 'use client';
 
 import { Card, CardContent } from "@/components/ui/card";
-import { MessageSquare, Trophy, Filter, Table, Search, Star, Edit, Trash, FileImage } from 'lucide-react';
+import { useState } from "react";
+import { MessageSquare, Menu, Trophy, Filter, Table, Search, Star, Edit, Trash, FileImage } from 'lucide-react';
 import Image from 'next/image';
 
 // User Info Card Component
-const UserInfoCard = () => {
+const UserInfoSection = () => {
+  const goldLevelGradient = "linear-gradient(179deg, #FFD23D 35.57%, #EFD787 42.04%, #E1B831 57.97%, #EFD787 63.71%, rgba(242, 186, 0, 0.47) 84.77%)";
+
   return (
-    <Card className="mb-6">
-      <CardContent className="p-6">
-        <div className="flex items-center gap-6">
-          <Image
-            src="/path-to-user-image.jpg"
-            alt="User Profile"
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-          <div className="grid grid-cols-4 gap-8">
-            <div>
-              <p className="text-sm text-gray-500">Nama:</p>
-              <p className="font-medium">Anandita Nabilia Ramadhani</p>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+      {/* User Info Card */}
+      <Card className="lg:col-span-2 overflow-hidden">
+      <CardContent className="p-4 sm:p-6">
+        <div className="space-y-4">
+          {/* Header */}
+          <h2 className="text-xl text-primary font-medium text-gray-800">
+            Informasi User
+          </h2>
+
+          {/* Content Container */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            {/* Profile Image */}
+            <div className="relative w-12 h-12 flex-shrink-0">
+              <Image
+                src="/images/profile-placeholder.png"
+                alt="User Profile"
+                fill
+                className="rounded-full object-cover"
+              />
             </div>
-            <div>
-              <p className="text-sm text-gray-500">User Id:</p>
-              <p className="font-medium">US-1247</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Email:</p>
-              <p className="font-medium">anandita0211@gmail.com</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">No Telepon:</p>
-              <p className="font-medium">081234567891</p>
+            
+            {/* User Info Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+              <div>
+                <p className="text-xs sm:text-sm text-gray-500">Nama:</p>
+                <p className="text-sm sm:text-base font-medium truncate">Anandita Nabilia Ramadhani</p>
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm text-gray-500">User Id:</p>
+                <p className="text-sm sm:text-base font-medium">US-1247</p>
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm text-gray-500">Email:</p>
+                <p className="text-sm sm:text-base font-medium truncate">anandita0211@gmail.com</p>
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm text-gray-500">No Telepon:</p>
+                <p className="text-sm sm:text-base font-medium">081234567891</p>
+              </div>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
-  );
-};
 
-// Stats Cards Component
-const StatsCards = () => {
-  return (
-    <div className="grid grid-cols-2 gap-6 mb-6">
-      <Card className="bg-white">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-red-50 p-3 rounded-lg">
-              <MessageSquare className="w-5 h-5 text-red-600" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Total Feedback</p>
-              <p className="text-2xl font-semibold">43</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="bg-white">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-[#FFF9E7] p-3 rounded-lg">
-              <Trophy className="w-5 h-5 text-[#FFD23D]" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Poin Level</p>
-              <div className="flex items-center gap-2">
-                <p className="text-2xl font-semibold">1,131</p>
-                <span className="px-3 py-1 bg-[#FFF9E7] text-sm rounded-full text-[#FFD23D]">
-                  Gold Level
-                </span>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+        <Card className="bg-white overflow-hidden">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-4">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 flex items-center justify-center rounded-full bg-red-50 shadow-sm">
+                <MessageSquare className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <p className="text-lg text-primary font-medium text-gray-800">Total Feedback</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-semibold">43</p>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white overflow-hidden">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-4">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 flex items-center justify-center rounded-full bg-red-50 shadow-sm">
+                <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
+              </div>
+              <div>
+                <p className="text-lg text-primary font-medium text-gray-800">Poin Level</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-lg sm:text-xl lg:text-2xl font-semibold">1,131</p>
+                  <div 
+                    className="px-2 py-1 text-xs rounded-lg font-medium"
+                    style={{ 
+                      background: goldLevelGradient,
+                      color: "#303030"
+                    }}
+                  >
+                    Gold Level
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
 
 // Feedback Status Filter
 const FeedbackFilter = () => {
+  const [activeStatus, setActiveStatus] = useState('Semua');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const statuses = ['Semua', 'Terkirim', 'Draft', 'Gagal'];
+
   return (
-    <div className="flex justify-between items-center mb-6">
-      <div className="flex gap-2">
-        <button className="px-4 py-2 rounded-lg bg-[#CF0000] text-white">
-          Semua
-        </button>
-        <button className="px-4 py-2 rounded-lg bg-gray-100">
-          Terkirim
-        </button>
-        <button className="px-4 py-2 rounded-lg bg-gray-100">
-          Draft
-        </button>
-        <button className="px-4 py-2 rounded-lg bg-gray-100">
-          Gagal
-        </button>
+    <div className="flex flex-col sm:flex-row justify-between gap-4 sm:items-center">
+      {/* Filter Tabs */}
+      <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
+        {statuses.map((status) => (
+          <button
+            key={status}
+            onClick={() => setActiveStatus(status)}
+            className={`h-8 px-3 sm:px-4 flex-shrink-0 flex items-center justify-center text-xs font-medium tracking-wider rounded-lg transition-colors
+              ${activeStatus === status 
+                ? 'bg-[#CF0000] text-[#FBFBFC]' 
+                : 'bg-gray-100 text-[#080808] hover:bg-gray-200'
+              }`}
+          >
+            {status}
+          </button>
+        ))}
       </div>
-      <div className="flex gap-4">
-        <div className="relative">
+
+      {/* Search and Tools */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+        <div className="relative flex-grow sm:flex-grow-0">
           <input
             type="text"
             placeholder="Search placeholder"
-            className="w-[320px] h-[46px] pl-10 pr-4 rounded-lg bg-gray-100"
+            className="w-full sm:w-[283px] h-8 pl-10 pr-4 rounded-[20px] bg-[#E5E6E6] text-xs"
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search 
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" 
+            size={18} 
+          />
         </div>
-        <button className="px-4 py-2 rounded-lg border flex items-center gap-2">
-          <Filter size={20} />
-          Filter
-        </button>
-        <button className="px-4 py-2 rounded-lg border flex items-center gap-2">
-          <Table size={20} />
-          Tampilkan Tabel
-        </button>
+
+        {/* Desktop Buttons */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          <button className="flex items-center gap-1.5 px-3 h-8 bg-white rounded-lg border text-xs hover:bg-gray-50 transition-colors">
+            <Filter size={18} />
+            Filter
+          </button>
+          <button className="flex items-center gap-1.5 px-3 h-8 bg-white rounded-lg border text-xs hover:bg-gray-50 transition-colors">
+            <Table size={18} />
+            Tampilkan Tabel
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="relative sm:hidden">
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center gap-1.5 px-3 h-8 bg-white rounded-lg border text-xs w-full justify-center hover:bg-gray-50 transition-colors"
+          >
+            <Menu size={18} />
+            Menu
+          </button>
+
+          {isMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1 z-10">
+              <button className="flex items-center gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 w-full">
+                <Filter size={18} />
+                Filter
+              </button>
+              <button className="flex items-center gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 w-full">
+                <Table size={18} />
+                Tampilkan Tabel
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 };
+
 
 // Star Rating Component
 const StarRating = ({ rating }: { rating: number }) => {
@@ -140,13 +202,13 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 // Status Badge Component
 const StatusBadge = ({ status }: { status: 'Belum' | 'Selesai' }) => {
-  const styles = {
-    'Belum': 'bg-red-100 text-red-600',
-    'Selesai': 'bg-green-100 text-green-600',
-  };
-
   return (
-    <span className={`px-3 py-1 rounded-full text-sm ${styles[status]}`}>
+    <span className={`px-2 py-1 rounded text-xs
+      ${status === 'Selesai' 
+        ? 'bg-[#EEFBD1] text-[#1F5305]' 
+        : 'bg-[#FCE6CF] text-[#CF0000]'
+      }`}
+    >
       {status}
     </span>
   );
@@ -155,59 +217,59 @@ const StatusBadge = ({ status }: { status: 'Belum' | 'Selesai' }) => {
 // Feedback History Table
 const FeedbackTable = () => {
   return (
-    <div className="rounded-lg border">
-      <table className="w-full">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="w-4 p-4">
-              <input type="checkbox" className="rounded" />
-            </th>
-            <th className="text-left p-4">Feedback Id</th>
-            <th className="text-left p-4">Tanggal</th>
-            <th className="text-left p-4">Jenis Feedback</th>
-            <th className="text-left p-4">Tanggal LRT</th>
-            <th className="text-left p-4">Stasiun</th>
-            <th className="text-left p-4">Feedback</th>
-            <th className="text-left p-4">Dokumentasi</th>
-            <th className="text-left p-4">Penilaian</th>
-            <th className="text-left p-4">Status</th>
-            <th className="text-right p-4">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Example row */}
-          <tr className="border-t">
-            <td className="p-4">
-              <input type="checkbox" className="rounded" />
-            </td>
-            <td className="p-4">UF-1245</td>
-            <td className="p-4">2028-02-27 04:28:48</td>
-            <td className="p-4">Kritik dan Saran</td>
-            <td className="p-4">2028-02-27</td>
-            <td className="p-4">DJKA</td>
-            <td className="p-4 max-w-xs">Ada beberapa pintu otomatis yang tidak...</td>
-            <td className="p-4">
-              <span className="text-gray-500">DSC21012.JPG</span>
-            </td>
-            <td className="p-4">
-              <StarRating rating={4} />
-            </td>
-            <td className="p-4">
-              <StatusBadge status="Belum" />
-            </td>
-            <td className="p-4">
-              <div className="flex justify-end gap-2">
-                <button className="p-2 hover:bg-gray-100 rounded-lg">
-                  <Edit className="w-4 h-4" />
-                </button>
-                <button className="p-2 hover:bg-gray-100 rounded-lg">
-                  <Trash className="w-4 h-4" />
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="rounded-lg border overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[1000px]">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="w-4 p-4 text-left">
+                <input type="checkbox" className="rounded" />
+              </th>
+              <th className="p-4 text-left text-sm font-medium">Feedback Id</th>
+              <th className="p-4 text-left text-sm font-medium">Tanggal</th>
+              <th className="p-4 text-left text-sm font-medium">Jenis Feedback</th>
+              <th className="p-4 text-left text-sm font-medium">Tanggal LRT</th>
+              <th className="p-4 text-left text-sm font-medium">Stasiun</th>
+              <th className="p-4 text-left text-sm font-medium">Feedback</th>
+              <th className="p-4 text-left text-sm font-medium">Dokumentasi</th>
+              <th className="p-4 text-left text-sm font-medium">Penilaian</th>
+              <th className="p-4 text-left text-sm font-medium">Status</th>
+              <th className="p-4 text-right text-sm font-medium">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr className="border-t hover:bg-gray-50">
+              <td className="p-4">
+                <input type="checkbox" className="rounded" />
+              </td>
+              <td className="p-4 text-sm">UF-1245</td>
+              <td className="p-4 text-sm whitespace-nowrap">2028-02-27 04:28:48</td>
+              <td className="p-4 text-sm">Kritik dan Saran</td>
+              <td className="p-4 text-sm whitespace-nowrap">2028-02-27</td>
+              <td className="p-4 text-sm">DJKA</td>
+              <td className="p-4 text-sm max-w-xs truncate">Ada beberapa pintu otomatis yang tidak...</td>
+              <td className="p-4 text-sm text-gray-500">DSC21012.JPG</td>
+              <td className="p-4">
+                <StarRating rating={4} />
+              </td>
+              <td className="p-4">
+                <StatusBadge status="Belum" />
+              </td>
+              <td className="p-4">
+                <div className="flex justify-end gap-2">
+                  <button className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+                    <Edit className="w-4 h-4 text-gray-500" />
+                  </button>
+                  <button className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+                    <Trash className="w-4 h-4 text-gray-500" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -223,8 +285,7 @@ export const UserFeedbackHistory = () => {
         </div>
   
         <div className="space-y-6">
-          <UserInfoCard />
-          <StatsCards />
+          <UserInfoSection />
           <FeedbackFilter />
           <FeedbackTable />
         </div>

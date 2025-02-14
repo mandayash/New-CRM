@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Pencil, Trash, FileText } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
 import { useRouter } from 'next/navigation';
 
 interface Article {
@@ -50,81 +49,84 @@ const articles: Article[] = [
 
 const StatusBadge = ({ status }: { status: Article['status'] }) => {
   const styles = {
-    'Draft': 'bg-gray-100 text-gray-800',
-    'Terkirim': 'bg-green-100 text-green-800',
-    'Gagal': 'bg-red-100 text-red-800'
+    'Draft': 'bg-[#4B5563] text-[#FFFFFF]',
+    'Terkirim': 'bg-[#EEFBD1] text-[#1F5305]',
+    'Gagal': 'bg-[#FCE6CF] text-[#CF0000]'
   }[status];
 
   return (
-    <Badge className={styles} variant="outline">
+    <span className={`px-2 py-1 rounded text-xs ${styles}`}>
       {status}
-    </Badge>
+    </span>
   );
 };
 
 export default function ArticleTable() {
-const router = useRouter();
+  const router = useRouter();
+
   return (
-    <div className="rounded-lg border">
-      <Table>
-        <TableHeader>
-          <TableRow className="bg-gray-50">
-            <TableHead className="w-[30px]">
-              <input type="checkbox" className="rounded" />
-            </TableHead>
-            <TableHead>Artikel Id</TableHead>
-            <TableHead>Tanggal Artikel</TableHead>
-            <TableHead>Judul Artikel</TableHead>
-            <TableHead>Isi Artikel</TableHead>
-            <TableHead>Gambar Artikel</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Aksi</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {articles.map((article) => (
-            <TableRow key={article.id}>
-              <TableCell>
+    <div className="rounded-lg border overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[1000px]">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="w-4 p-4 text-left">
                 <input type="checkbox" className="rounded" />
-              </TableCell>
-              <TableCell className="font-medium">{article.id}</TableCell>
-              <TableCell>{article.date}</TableCell>
-              <TableCell>{article.title}</TableCell>
-              <TableCell className="max-w-xs truncate">{article.content}</TableCell>
-              <TableCell>{article.image}</TableCell>
-              <TableCell>
-                <StatusBadge status={article.status} />
-              </TableCell>
-              <TableCell>
-              <div className="flex items-center gap-1.5">
-                {article.status === 'Terkirim' ? (
-                  // Ikon untuk feedback yang sudah selesai
-                  <button
-                    onClick={() => router.push(`/articles/${article.id}`)}  
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    <FileText size={18} className="text-gray-600" />  
-                  </button>
-                ) : (
-                  // Ikon untuk feedback yang bgagal dan draft
-                  <>
-                    <button
-                      onClick={() => router.push(`/articles/${article.id}/edit`)}
-                      className="p-1 hover:bg-gray-100 rounded"
-                    >
-                      <Pencil size={18} className="text-gray-600" />
-                    </button>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <Trash size={18} className="text-gray-600" />
-                    </button>
-                  </>
-                )}
-              </div>
-            </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+              </th>
+              <th className="p-4 text-left text-sm font-medium">Artikel Id</th>
+              <th className="p-4 text-left text-sm font-medium">Tanggal Artikel</th>
+              <th className="p-4 text-left text-sm font-medium">Judul Artikel</th>
+              <th className="p-4 text-left text-sm font-medium">Isi Artikel</th>
+              <th className="p-4 text-left text-sm font-medium">Gambar Artikel</th>
+              <th className="p-4 text-left text-sm font-medium">Status</th>
+              <th className="p-4 text-right text-sm font-medium">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {articles.map((article) => (
+              <TableRow key={article.id} className="hover:bg-gray-50">
+                <td className="p-4">
+                  <input type="checkbox" className="rounded" />
+                </td>
+                <td className="p-4 text-sm font-medium">{article.id}</td>
+                <td className="p-4 text-sm whitespace-nowrap">{article.date}</td>
+                <td className="p-4 text-sm max-w-[200px] truncate">{article.title}</td>
+                <td className="p-4 text-sm max-w-[300px] truncate">{article.content}</td>
+                <td className="p-4 text-sm text-gray-500">{article.image}</td>
+                <td className="p-4">
+                  <StatusBadge status={article.status} />
+                </td>
+                <td className="p-4">
+                  <div className="flex justify-end gap-2">
+                    {article.status === 'Terkirim' ? (
+                      <button
+                        onClick={() => router.push(`/articles/${article.id}`)}  
+                        className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                      >
+                        <FileText className="w-4 h-4 text-gray-500" />
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => router.push(`/articles/${article.id}/edit`)}
+                          className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                        >
+                          <Pencil className="w-4 h-4 text-gray-500" />
+                        </button>
+                        <button 
+                          className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                        >
+                          <Trash className="w-4 h-4 text-gray-500" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </td>
+              </TableRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// components/feedback/reply/FeedbackReplyWrapper.tsx
 'use client';
 
 import FeedbackDetail from './FeedbackDetail';
@@ -36,13 +35,20 @@ const FeedbackReplyWrapper = ({ feedbackData }: FeedbackReplyWrapperProps) => {
     };
 
     return (
-        <div className="w-full overflow-x-auto">
-            <div className="min-w-[1000px] flex gap-6">
-                <FeedbackDetail {...feedbackData} />
-                <ReplyForm 
-                    onSubmit={handleSubmit}
-                    onSave={handleSave}
-                />
+        <div className="w-full">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+                {/* Feedback Detail Section */}
+                <div className="w-full lg:w-auto lg:min-w-[443px]">
+                    <FeedbackDetail {...feedbackData} />
+                </div>
+
+                {/* Reply Form Section */}
+                <div className="w-full lg:flex-1">
+                    <ReplyForm 
+                        onSubmit={handleSubmit}
+                        onSave={handleSave}
+                    />
+                </div>
             </div>
         </div>
     );

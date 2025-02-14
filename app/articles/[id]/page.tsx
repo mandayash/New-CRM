@@ -52,7 +52,7 @@ export default function ArticleDetailPage() {
                 </h2>
     
                 {/* Content */}
-                <div className="prose max-w-none text-gray-600">
+                <div className="prose max-w-none text-gray-600 text-justify">
                   {article.content}
                 </div>
               </div>

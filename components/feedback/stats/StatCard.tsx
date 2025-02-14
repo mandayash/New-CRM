@@ -1,4 +1,3 @@
-// Untuk satu card di page Feedback
 'use client';
 
 import { LucideIcon } from 'lucide-react';
@@ -25,37 +24,48 @@ const StatCard = ({
   const isIncrease = percentageChange > 0;
   
   return (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between">
-          <div className="flex items-start gap-4">
+    <Card className="overflow-hidden h-full">
+      <CardContent className="p-4 sm:p-6 h-full">
+        <div className="flex items-start justify-between h-full">
+          {/* Left Section: Icon and Main Stats */}
+          <div className="flex items-start gap-3 sm:gap-4 min-w-0">
             {/* Icon with consistent background styling */}
-            <div className="h-12 w-12 flex items-center justify-center rounded-full bg-red-50">
-              <Icon className="w-6 h-6 text-red-600" />
+            <div className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 flex items-center justify-center rounded-full bg-red-50">
+              <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
             </div>
             
             {/* Title and value */}
-            <div className="flex flex-col">
-              <p className="text-base text-gray-600">{title}</p>
-              <p className="text-2xl font-semibold mt-1 text-primary" style={{ color: valueColor }}>
+            <div className="flex flex-col min-w-0">
+              <p className="text-xs sm:text-sm text-gray-600 truncate">
+                {title}
+              </p>
+              <p 
+                className="text-lg sm:text-xl lg:text-2xl font-semibold mt-0.5 sm:mt-1 truncate"
+                style={{ color: valueColor }}
+              >
                 {value.toLocaleString()}
               </p>
             </div>
           </div>
 
-          {/* Percentage change */}
-          <div className="flex flex-col items-end">
+          {/* Right Section: Percentage and Previous Value */}
+          <div className="flex flex-col items-end justify-start gap-1 flex-shrink-0">
+            {/* Percentage change */}
             <div className={`flex items-center ${
               isIncrease ? 'text-green-600' : 'text-red-600'
             }`}>
-              <span className="text-sm font-medium">
+              <span className="text-xs sm:text-sm font-medium whitespace-nowrap">
                 {isIncrease ? '↑' : '↓'} {Math.abs(percentageChange)}%
               </span>
             </div>
-            <div className="flex flex-col items-end text-xs text-gray-500 mt-1">
-              <span>{title}</span>
-              <span>Bulan Lalu</span>
-              <span className="text-red-600 font-medium text-md">
+            
+            {/* Previous value info */}
+            <div className="flex flex-col items-end">
+              <div className="text-[10px] sm:text-xs text-gray-500 text-right leading-tight">
+                <p className="truncate">{title}</p>
+                <p>Bulan Lalu</p>
+              </div>
+              <span className="text-xs sm:text-sm text-red-600 font-medium whitespace-nowrap mt-0.5">
                 {previousValue.toLocaleString()}
               </span>
             </div>
@@ -65,3 +75,5 @@ const StatCard = ({
     </Card>
   );
 };
+
+export default StatCard;

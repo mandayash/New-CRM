@@ -45,9 +45,9 @@ export default function RootLayout({
       <body className={`${sfProDisplay.variable} bg-light text-text font-sans`}>
         <SidebarProvider>
         <Sidebar />
-        <main className="flex-1 md:ml-[238px]"> 
+        <main className="ml-0 sm:ml-[238px]"> 
           <Navbar />
-          <div className="p-8">
+          <div className="p-4 sm:p-8 pt-0 sm:pt-0">
             {children}
           </div>
         </main>

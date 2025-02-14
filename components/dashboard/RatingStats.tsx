@@ -25,12 +25,12 @@ const RatingStats: React.FC = () => {
 
   const RatingBar: React.FC<RatingData> = ({ stars, percentage, count, fill }) => {
     return (
-      <div className="flex items-center gap-3 min-w-[300px]">
+      <div className="flex items-center gap-3 w-full min-w-[300px]">
         <div 
           className="w-6 h-6 rounded-sm flex-shrink-0"
           style={{ backgroundColor: fill }}
         />
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-shrink-0">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
@@ -39,9 +39,9 @@ const RatingStats: React.FC = () => {
             />
           ))}
         </div>
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="flex items-center gap-2 ml-auto flex-shrink-0">
           <span className="text-sm font-semibold whitespace-nowrap">{percentage}%</span>
-          <span className="text-sm text-gray-500 hidden md:inline-block">
+          <span className="text-sm text-gray-500 whitespace-nowrap">
             ({count.toLocaleString()})
           </span>
         </div>
@@ -51,19 +51,26 @@ const RatingStats: React.FC = () => {
 
   return (
     <Card className="w-full h-full overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between px-6 pt-6">
-        <CardTitle className="text-lg text-primary font-medium">Penilaian</CardTitle>
-        <select className="border rounded-lg px-3 py-2 text-sm bg-white">
-          <option value="tahun-ini">Tahun Ini</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-        </select>
+      <CardHeader className="px-4 sm:px-6 pt-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+          <div className="min-w-0 w-full sm:w-auto"> {/* Added min-w-0 for truncate */}
+            <CardTitle className="text-base sm:text-lg text-primary font-medium truncate">
+              Penilaian
+            </CardTitle>
+          </div>
+          <select className="w-full sm:w-auto border rounded-lg px-3 py-2 text-xs sm:text-sm bg-white flex-shrink-0">
+            <option>Tahun Ini</option>
+            <option>2024</option>
+            <option>2023</option>
+          </select>
+        </div>
       </CardHeader>
-      <CardContent className="flex flex-col pt-8 px-6">
-        <div className="relative mx-auto mb-8" style={{ width: '200px', height: '200px' }}>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10">
+      <CardContent className="flex flex-col pt-6 sm:pt-8 px-4 sm:px-6">
+        {/* Pie Chart */}
+        <div className="relative w-full max-w-[200px] aspect-square mx-auto mb-8">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10 w-full">
             <p className="text-sm text-gray-600">Total Penilaian</p>
-            <p className="text-2xl font-bold text-primary">{total.toLocaleString()}</p>
+            <p className="text-xl md:text-2xl font-bold text-primary">{total.toLocaleString()}</p>
           </div>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -73,20 +80,22 @@ const RatingStats: React.FC = () => {
                 nameKey="stars"
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={80}
+                innerRadius="60%"
+                outerRadius="80%"
                 startAngle={90}
                 endAngle={-270}
               />
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="overflow-x-auto>">
-        <div className="space-y-4">
-          {ratings.map((rating) => (
-            <RatingBar key={rating.stars} {...rating} />
-          ))}
-        </div>
+        
+        {/* Wrapper untuk konten yang bisa di-scroll */}
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent pb-2">
+          <div className="space-y-4 min-w-[350px]">
+            {ratings.map((rating) => (
+              <RatingBar key={rating.stars} {...rating} />
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

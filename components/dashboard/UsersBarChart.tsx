@@ -51,13 +51,18 @@ const UsersBarChart: React.FC = () => {
     };
 
     return (
-      <div className="w-full overflow-auto">
-        <div className="min-w-[800px] h-[300px]">
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[600px] sm:min-w-[700px] lg:min-w-full h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data}
-              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-              barSize={40}
+              margin={{ 
+                top: 10, 
+                right: 20, 
+                left: 0, 
+                bottom: 0 
+              }}
+              barSize={30}
             >
               <defs>
                 <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
@@ -74,17 +79,28 @@ const UsersBarChart: React.FC = () => {
                 dataKey="month"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#666', fontSize: 12 }}
+                tick={{ 
+                  fill: '#666', 
+                  fontSize: 11,
+                  fontFamily: 'var(--sf-pro-display)'
+                }}
                 dy={10}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#666', fontSize: 12 }}
+                tick={{ 
+                  fill: '#666', 
+                  fontSize: 11,
+                  fontFamily: 'var(--sf-pro-display)'
+                }}
                 tickFormatter={(value: number) => `${value/1000}K`}
                 width={45}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip 
+                content={<CustomTooltip />}
+                cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+              />
               <Bar
                 dataKey="users"
                 fill="url(#colorGradient)"
@@ -98,27 +114,29 @@ const UsersBarChart: React.FC = () => {
   };
 
   return (
-    <Card className="w-full h-full">
-      <CardHeader className="px-6 pt-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <CardTitle className="text-lg font-medium text-primary">Total Pengguna Aplikasi</CardTitle>
-            <div className="mt-1">
-              <p className="text-3xl font-bold">1,121</p>
-              <p className="text-sm text-gray-500">Total Pengguna</p>
+    <Card className="w-full h-full overflow-hidden">
+      <CardHeader className="px-4 sm:px-6 pt-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+          <div className="min-w-0 w-full sm:w-auto"> 
+            <CardTitle className="text-base sm:text-lg font-medium text-primary truncate">
+              Total Pengguna Aplikasi
+            </CardTitle>
+            <div className="mt-1 min-w-0"> 
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">1,121</p>
+              <p className="text-xs sm:text-sm text-gray-500 truncate">Total Pengguna</p>
             </div>
           </div>
-          <select className="border rounded-lg px-3 py-2 text-sm">
+          <select className="w-full sm:w-auto border rounded-lg px-3 py-2 text-xs sm:text-sm bg-white flex-shrink-0">
             <option>Tahun Ini</option>
             <option>2024</option>
             <option>2023</option>
           </select>
         </div>
       </CardHeader>
-      <CardContent className ="flex-1"> 
+      <CardContent className="flex-1 px-4 sm:px-6"> 
         {isClient ? <Chart /> : (
           <div className="w-full h-[300px] flex items-center justify-center">
-            <p>Loading chart...</p>
+            <p className="text-gray-500">Loading chart...</p>
           </div>
         )}
       </CardContent>

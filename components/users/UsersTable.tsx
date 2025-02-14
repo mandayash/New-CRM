@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+
 import Link from 'next/link'
+import React, { useState } from 'react'
 
 import {
   Table,
@@ -12,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Image from 'next/image'
-import { ChevronLeft,FileText, ChevronRight } from 'lucide-react'
+import { ChevronLeft,FileText, ChevronRight, Eye } from 'lucide-react'
 
 // Interface untuk data user
 interface User {
@@ -30,7 +31,7 @@ interface User {
 const users: User[] = [
   {
     id: 'US-1245',
-    profileImage: '/path-to-image.jpg',
+    profileImage: '/profile-placeholder.png',
     name: 'Anandita Nabila Ramadhani',
     email: 'anandita0211@gmail.com',
     phone: '081234567891',
@@ -40,23 +41,23 @@ const users: User[] = [
   },
   {
     id: 'US-1245',
-    profileImage: '/path-to-image.jpg',
+    profileImage: '/profile-placeholder.png',
     name: 'Koala Nabila Ramadhani',
     email: 'anandita0211@gmail.com',
     phone: '081234567891',
     totalFeedback: 23,
     totalPoints: 1123,
-    level: 'Gold Level'
+    level: 'Silver Level'
   },
   {
     id: 'US-1247',
-    profileImage: '/path-to-image.jpg',
+    profileImage: '/profile-placeholder.png',
     name: 'Jerapah Nabila Ramadhani',
     email: 'anandita0211@gmail.com',
     phone: '081234567891',
     totalFeedback: 23,
     totalPoints: 1123,
-    level: 'Gold Level'
+    level: 'Platinum Level'
   },
   
 ]
@@ -64,65 +65,90 @@ const users: User[] = [
 // Komponen badge untuk level
 const LevelBadge = ({ level }: { level: User['level'] }) => {
   const badgeStyles = {
-    'Silver Level': 'bg-gray-200 text-gray-700',
-    'Gold Level': 'bg-yellow-100 text-yellow-700',
-    'Platinum Level': 'bg-purple-100 text-purple-700'
+    'Silver Level': {
+      background: "linear-gradient(198deg, #ADADAD 20.34%, #D2D2D2 29.06%, #BBB 50.52%, #A0A0A0 58.25%, #959595 86.63%)",
+      text: "#303030"
+    },
+    'Gold Level': {
+      background: "linear-gradient(179deg, #FFD23D 35.57%, #EFD787 42.04%, #E1B831 57.97%, #EFD787 63.71%, rgba(242, 186, 0, 0.47) 84.77%)",
+      text: "#303030"
+    },
+    'Platinum Level': {
+      background: "linear-gradient(244deg, #B09FFF 37.63%, #8C7BDB 41.94%, #BEB0FF 52.54%, #8C7BDB 56.36%, #CBC0FF 70.38%)",
+      text: "#303030"
+    }
   }[level]
 
   return (
-    <span className={`px-3 py-1 rounded-full text-sm ${badgeStyles}`}>
+    <span 
+      className="px-3 py-1 rounded-full text-xs font-medium"
+      style={{ 
+        background: badgeStyles.background,
+        color: badgeStyles.text
+      }}
+    >
       {level}
     </span>
   )
 }
 
 const UsersTable = () => {
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const totalUsers = 472322
+  const currentPage = 1
+  const totalPages = Math.ceil(totalUsers / rowsPerPage)
+
   return (
-    <div className="space-y-4">
-      <div className="rounded-lg border">
+    <div className="space-y-4 overflow-hidden">
+      {/* Table Container */}
+      <div className="rounded-lg border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50">
-              <TableHead className="w-[100px]">User Id</TableHead>
-              <TableHead>Profile</TableHead>
-              <TableHead>Nama Pengguna</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Nomor Telepon</TableHead>
+              <TableHead className="w-[100px] text-center py-4">User Id</TableHead>
+              <TableHead className="text-center">Profile</TableHead>
+              <TableHead className="text-center">Nama Pengguna</TableHead>
+              <TableHead className="text-center">Email</TableHead>
+              <TableHead className="text-center">Nomor Telepon</TableHead>
               <TableHead className="text-center">Total Feedback</TableHead>
               <TableHead className="text-center">Total Poin</TableHead>
-              <TableHead>Level Poin</TableHead>
-              <TableHead className="text-right">Riwayat Feedback & Poin</TableHead>
+              <TableHead className="text-center">Level Poin</TableHead>
+              <TableHead className="text-center w-[130px]">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.id}</TableCell>
-                <TableCell>
-                  <Image
-                    src={user.profileImage}
-                    alt={user.name}
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                  />
+              <TableRow key={user.id} className="hover:bg-gray-50">
+                <TableCell className="font-medium text-center">{user.id}</TableCell>
+                <TableCell className="text-center">
+                  <div className="flex justify-center">
+                    <Image
+                      src={user.profileImage}
+                      alt={user.name}
+                      width={36}
+                      height={36}
+                      className="rounded-full"
+                    />
+                  </div>
                 </TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.phone}</TableCell>
-                <TableCell className="text-center">{user.totalFeedback}</TableCell>
-                <TableCell className="text-center">{user.totalPoints}</TableCell>
-                <TableCell>
-                  <LevelBadge level={user.level} />
+                <TableCell className="text-center font-medium">{user.totalFeedback}</TableCell>
+                <TableCell className="text-center font-medium">{user.totalPoints}</TableCell>
+                <TableCell className="text-center">
+                  <div className="flex justify-center">
+                    <LevelBadge level={user.level} />
+                  </div>
                 </TableCell>
-                <TableCell className="text-right">
-                <Link 
+                <TableCell className="text-center">
+                  <Link 
                     href={`/users/${user.id}/history`}
-                    className="flex items-center justify-end gap-2 text-gray-500 hover:text-gray-700 text-sm px-4 py-2 border rounded-lg"
-                >
-                    <FileText size={16} />
-                    Lihat Riwayat
-                </Link>
+                    className="inline-flex items-center gap-1.5 text-gray-500 hover:text-primary text-sm px-3 py-1.5 border rounded-lg hover:border-primary transition-colors"
+                  >
+                    <Eye size={16} />
+                    Riwayat
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
@@ -130,26 +156,47 @@ const UsersTable = () => {
         </Table>
       </div>
 
+      {/* Pagination & View Options */}
       {/* Pagination */}
-      <div className="flex items-center justify-between px-2">
-        <div className="text-sm text-gray-500">
-          Showing <span className="font-medium">12</span> out of <span className="font-medium">472,322</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button className="p-2 rounded-lg border hover:bg-gray-50">
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button className="px-3 py-1 rounded-lg bg-[#CF0000] text-white">1</button>
-          <button className="px-3 py-1 rounded-lg hover:bg-gray-50">2</button>
-          <button className="px-3 py-1 rounded-lg hover:bg-gray-50">3</button>
-          <span className="px-3 py-1">...</span>
-          <button className="px-3 py-1 rounded-lg hover:bg-gray-50">15</button>
-          <button className="p-2 rounded-lg border hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    </div>
+            <div className="flex items-center justify-between py-4">
+              <div className="flex items-center gap-2 text-xs">
+              <span className="text-gray-500">
+                  Show
+                </span>
+                <select className="bg-[#EAEAEA] px-2 py-1.5 rounded">
+                  <option>12</option>
+                  <option>24</option>
+                  <option>36</option>
+                </select>
+                <span className="text-gray-500">
+                  out of 472,322
+                </span>
+              </div>
+      
+              <div className="flex items-center gap-2">
+                <button className="p-1.5 bg-[#EAEAEA] rounded-lg">
+                  <ChevronLeft size={16} className="text-[#080808]" />
+                </button>
+                
+                {[1, 2, 3, '...', 15].map((page, i) => (
+                  <button
+                    key={i}
+                    className={`w-[30px] h-[30px] flex items-center justify-center rounded-lg text-xs
+                      ${page === 1 
+                        ? 'bg-[#CF0000] text-white' 
+                        : 'bg-[#EAEAEA] text-[#080808]'
+                      }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+      
+                <button className="p-1.5 bg-[#EAEAEA] rounded-lg">
+                  <ChevronRight size={16} className="text-[#080808]" />
+                </button>
+              </div>
+            </div>
+          </div>
   )
 }
 
