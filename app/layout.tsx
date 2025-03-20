@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sfProDisplay.variable} bg-light text-text font-sans`}>
+      <body className={`${sfProDisplay.variable} bg-[#F4F4F4] text-text font-sans`}>
         <SidebarProvider>
         <Sidebar />
         <main className="ml-0 sm:ml-[238px]"> 

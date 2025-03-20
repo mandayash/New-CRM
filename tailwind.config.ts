@@ -14,6 +14,9 @@ const config: Config = {
   				'var(--sf-pro-display)'
   			]
   		},
+		letterSpacing: {
+			sfProDisplay: '0.5px'
+		},
   		colors: {
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
@@ -24,7 +27,8 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
-  			success: '#69AF1D',
+  			success: '#DBF7A4',
+			successtext: '#1F5305',
   			info: '#008ED1',
   			warning: '#C6BD03',
   			danger: '#D64017',
@@ -61,7 +65,14 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			gray: {
+			100: '#FFFFFF',
+			200: '#EAEAEA',
+			300: '#C0C0C0',
+			400: '#828282',
+			900: '#080808'
+			},
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

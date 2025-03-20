@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { LayoutDashboard, MessageSquare, Users, FileText, X } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Users, FileText, X, ScanQrCode, Gift } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useSidebar } from '@/context/SideBarContext';
 import { COLORS } from '@/constants/theme';
@@ -31,6 +31,16 @@ const Sidebar = () => {
             title: 'Kelola Artikel',
             icon: <FileText className="w-5 h-5"/>,
             path: '/articles'
+        },
+        {
+            title: 'Manajemen QR',
+            icon: <ScanQrCode className="w-5 h-5"/>,
+            path: '/qr-management'
+        },
+        {
+            title: 'Stok Hadiah',
+            icon: <Gift className="w-5 h-5"/>,
+            path: '/gift'
         }
     ];
 
