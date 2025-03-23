@@ -53,7 +53,7 @@ const RatingStats: React.FC = () => {
     <Card className="w-full h-full overflow-hidden">
       <CardHeader className="px-4 sm:px-6 pt-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
-          <div className="min-w-0 w-full sm:w-auto"> {/* Added min-w-0 for truncate */}
+          <div className="min-w-0 w-full sm:w-auto"> 
             <CardTitle className="text-base sm:text-lg text-primary font-medium truncate">
               Penilaian
             </CardTitle>
@@ -69,8 +69,8 @@ const RatingStats: React.FC = () => {
         {/* Pie Chart */}
         <div className="relative w-full max-w-[200px] aspect-square mx-auto mb-8">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10 w-full">
-            <p className="text-sm text-gray-600">Total Penilaian</p>
-            <p className="text-xl md:text-2xl font-bold text-primary">{total.toLocaleString()}</p>
+            <p className="text-sm text-[#242E2C]]">Total Penilaian</p>
+            <p className="text-xl md:text-2xl font-poppins font-bold text-primary">{total.toLocaleString()}</p>
           </div>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>

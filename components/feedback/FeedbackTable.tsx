@@ -3,11 +3,13 @@
 import React from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
-import { Star, Pencil, Trash, ChevronLeft, ChevronRight, ArrowUpDown, FileText } from 'lucide-react';
+import { Star, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import DeleteModal from './DeleteModal';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
+// Import utility function untuk actions
+import { useFeedbackActions, FeedbackItem } from '@/components/utils/feedback-actions';
 
 import {
   Table,
@@ -18,7 +20,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface FeedbackData {
+// Interface untuk props komponen
+interface FeedbackTableProps {
+  context?: 'feedbackTable' | 'userHistory';
+}
+
+// Interface untuk data feedback
+interface FeedbackData extends FeedbackItem {
   id: string;
   date: string;
   user: {
@@ -31,25 +39,29 @@ interface FeedbackData {
   documentation: string;
   rating: number;
   status: 'Selesai' | 'Belum';
+  lrtDate?: string;
+  station?: string;
 }
 
-const FeedbackTable = () => {
+const FeedbackTable = ({ context = 'feedbackTable' }: FeedbackTableProps) => {
   const router = useRouter();
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
-  const [selectedFeedbacks, setSelectedFeedbacks] = useState<FeedbackData[]>([]);
 
-    const handleDeleteClick = (feedback: FeedbackData) => {
-      setSelectedFeedbacks([feedback]);
-      setShowDeleteConfirmation(true);
-    };
+  // Handle sukses delete feedback
+  const handleDeleteSuccess = (items: FeedbackItem[]) => {
+    console.log('Deleted items:', items);
+    // API untuk delete item
+    // Kemudian tampilkan modal sukses
+    setShowDeleteSuccess(true);
+  };
 
-    const handleConfirmDelete = () => {
-      // Proses hapus data
-      setShowDeleteConfirmation(false);
-      setShowDeleteSuccess(true);
-      setSelectedFeedbacks([]);
-    };
+  const { 
+    renderActionButtons, 
+    showDeleteConfirmation, 
+    setShowDeleteConfirmation,
+    selectedItems,
+    handleConfirmDelete
+  } = useFeedbackActions(context, handleDeleteSuccess);
 
   // Sample data
   const feedbacks: FeedbackData[] = [
@@ -68,7 +80,7 @@ const FeedbackTable = () => {
       status: 'Selesai'
     },
     {
-        id: 'UF-1241',
+      id: 'UF-1241',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -82,7 +94,7 @@ const FeedbackTable = () => {
       status: 'Selesai'
     },
     {
-        id: 'UF-1243',
+      id: 'UF-1243',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -96,7 +108,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1243',
+      id: 'UF-1242', // Changed the duplicate ID
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -110,7 +122,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1244',
+      id: 'UF-1244',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -124,7 +136,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-12451',
+      id: 'UF-12451',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -138,7 +150,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1246',
+      id: 'UF-1246',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -152,7 +164,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1247',
+      id: 'UF-1247',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -166,7 +178,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1248',
+      id: 'UF-1248',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -180,7 +192,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1249',
+      id: 'UF-1249',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -194,7 +206,7 @@ const FeedbackTable = () => {
       status: 'Belum'
     },
     {
-        id: 'UF-1240',
+      id: 'UF-1240',
       date: '2028-02-27 04:28:48',
       user: {
         name: 'Sarah Miller',
@@ -214,7 +226,7 @@ const FeedbackTable = () => {
       <Table>
         <TableHeader className="bg-[#EAEAEA]">
           <TableRow>
-            <TableCell className="w-[15px] p-2.5">
+            <TableCell className="w-[15px] p-2.5 ">
               <input 
                 type="checkbox" 
                 className="w-[15px] h-[15px] border-[#C0C0C0] rounded"
@@ -224,40 +236,40 @@ const FeedbackTable = () => {
               Feedback Id 
               <ArrowUpDown size={12} className="text-[#080808]" />
             </TableHead>
-            <TableHead>Tanggal</TableHead>
-            <TableHead>User</TableHead>
-            <TableHead>Jenis Feedback</TableHead>
-            <TableHead>Tanggal LRT</TableHead>
-            <TableHead>Stasiun</TableHead>
-            <TableHead>Feedback</TableHead>
-            <TableHead className="w-[100px]">Dokumentasi</TableHead>
+            <TableHead className="text-[#080808]">Tanggal</TableHead>
+            <TableHead className="text-[#080808]">User</TableHead>
+            <TableHead className="text-[#080808]">Jenis Feedback</TableHead>
+            <TableHead className="text-[#080808]">Tanggal LRT</TableHead>
+            <TableHead className="text-[#080808]">Stasiun</TableHead>
+            <TableHead className="text-[#080808]">Feedback</TableHead>
+            <TableHead className="text-[#080808] w-[100px]">Dokumentasi</TableHead>
             <TableHead>
-              <div className="flex items-center gap-1.5">
+              <div className="text-[#080808] flex items-center gap-1.5">
                 Penilaian 
                 <ArrowUpDown size={12} className="text-[#080808]" />
               </div>
             </TableHead>
             <TableHead>
-              <div className="flex items-center gap-1.5">
+              <div className="text-[#080808] flex items-center gap-1.5">
                 Status
                 <ArrowUpDown size={12} className="text-[#080808]" />
               </div>
             </TableHead>
-            <TableHead>Aksi</TableHead>
+            <TableHead className='text-[#080808]'>Aksi</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {feedbacks.map((feedback) => (
             <TableRow key={feedback.id} className="h-[50px]">
-              <TableCell className="p-2.5">
+              <TableCell className="p-2.5 bg-white">
                 <input 
                   type="checkbox" 
-                  className="w-[15px] h-[15px] border-[#C0C0C0] rounded"
+                  className="bg-[#FFFFFF] w-[15px] h-[15px] border-[#C0C0C0] rounded"
                 />
               </TableCell>
-              <TableCell>{feedback.id}</TableCell>
-              <TableCell>{feedback.date}</TableCell>
-              <TableCell>
+              <TableCell className="bg-white">{feedback.id}</TableCell>
+              <TableCell className="bg-white">{feedback.date}</TableCell>
+              <TableCell className="bg-white">
                 <div className="flex items-center gap-2">
                   <Image
                     src={feedback.user.avatar}
@@ -272,14 +284,14 @@ const FeedbackTable = () => {
                   </div>
                 </div>
               </TableCell>
-              <TableCell>{feedback.type}</TableCell>
-              <TableCell>{feedback.date}</TableCell>
-              <TableCell>DJKA</TableCell>
-              <TableCell className="max-w-[200px] truncate">
+              <TableCell className="bg-white">{feedback.type}</TableCell>
+              <TableCell className="bg-white">{feedback.lrtDate || feedback.date}</TableCell>
+              <TableCell className="bg-white">{feedback.station || 'DJKA'}</TableCell>
+              <TableCell className="max-w-[200px] truncate bg-white">
                 {feedback.message}
               </TableCell>
-              <TableCell>{feedback.documentation}</TableCell>
-              <TableCell>
+              <TableCell className="bg-white">{feedback.documentation}</TableCell>
+              <TableCell className="bg-white">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -293,7 +305,7 @@ const FeedbackTable = () => {
                   ))}
                 </div>
               </TableCell>
-              <TableCell>
+              <TableCell className="bg-white">
                 <span className={`px-2 py-1 rounded text-xs
                   ${feedback.status === 'Selesai' 
                     ? 'bg-[#EEFBD1] text-[#1F5305]' 
@@ -303,47 +315,9 @@ const FeedbackTable = () => {
                   {feedback.status}
                 </span>
               </TableCell>
-              <TableCell>
-              <div className="flex items-center gap-1.5">
-                {feedback.status === 'Selesai' ? (
-                  // Ikon untuk feedback yang sudah selesai
-                  <button
-                    onClick={() => router.push(`/feedback/${feedback.id}/reply`)}  
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    <FileText size={18} className="text-gray-600" />  
-                  </button>
-                ) : (
-                  // Ikon untuk feedback yang belum selesai
-                  <>
-                    <button
-                      onClick={() => router.push(`/feedback/${feedback.id}`)}
-                      className="p-1 hover:bg-gray-100 rounded"
-                    >
-                      <Pencil size={18} className="text-gray-600" />
-                    </button>
-                    <button 
-                      onClick={() => handleDeleteClick(feedback)}
-                      className="p-1 hover:bg-gray-100 rounded"
-                    >
-                      <Trash size={18} className="text-gray-600" />
-                    </button>
-                  </>
-                )}
-              </div>
-            </TableCell>
-            {/* Modals */}
-            <DeleteConfirmationModal 
-              isOpen={showDeleteConfirmation}
-              onClose={() => setShowDeleteConfirmation(false)}
-              onConfirm={handleConfirmDelete}
-              selectedCount={selectedFeedbacks.length}
-            />
-
-            <DeleteModal 
-              isOpen={showDeleteSuccess}
-              onClose={() => setShowDeleteSuccess(false)}
-            />
+              <TableCell className="bg-white">
+                {renderActionButtons(feedback)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -352,7 +326,7 @@ const FeedbackTable = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center gap-2 text-xs">
-        <span className="text-gray-500">
+          <span className="text-gray-500">
             Show
           </span>
           <select className="bg-[#EAEAEA] px-2 py-1.5 rounded">
@@ -388,6 +362,19 @@ const FeedbackTable = () => {
           </button>
         </div>
       </div>
+
+      {/* Modals */}
+      <DeleteConfirmationModal 
+        isOpen={showDeleteConfirmation}
+        onClose={() => setShowDeleteConfirmation(false)}
+        onConfirm={handleConfirmDelete}
+        selectedCount={selectedItems.length}
+      />
+
+      <DeleteModal 
+        isOpen={showDeleteSuccess}
+        onClose={() => setShowDeleteSuccess(false)}
+      />
     </div>
   );
 };

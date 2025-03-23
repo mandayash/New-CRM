@@ -35,7 +35,7 @@ const FilterSearch = () => {
           <input
             type="text"
             placeholder="Search placeholder"
-            className="w-full sm:w-[283px] h-8 pl-10 pr-4 rounded-[20px] bg-[#E5E6E6] text-xs"
+            className="w-full sm:w-[283px] h-8 pl-10 pr-4 rounded-[20px] bg-white text-xs"
           />
           <Search 
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" 

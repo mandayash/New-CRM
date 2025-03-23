@@ -40,7 +40,7 @@ const FeedbackDetail = ({
   rating = 3
 }: FeedbackDetailProps) => {
   return (
-    <div className="w-full max-w-[443px] p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 rounded-2xl border border-[#C0C0C0] bg-[#F9F9F9]">
+    <div className="w-full max-w-[443px] p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 rounded-2xl border border-[#C0C0C0] bg-white">
       {/* Judul */}
       <h2 className="text-base sm:text-[18px] font-medium leading-[150%] tracking-[0.5px] text-[#080808]">
         Feedback

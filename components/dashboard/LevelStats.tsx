@@ -52,7 +52,6 @@ const LevelStats = () => {
     return (
       <div className="flex items-center gap-4 min-w-[250px] sm:min-w-[300px]">
         <div className="flex items-center gap-3 flex-1">
-          {/* Percentage badge with gradient background */}
           <div 
             className="px-2 sm:px-3 py-1 rounded-lg w-[40px] sm:w-[48px] text-center flex-shrink-0"
             style={{
@@ -63,7 +62,7 @@ const LevelStats = () => {
           </div>
           <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{level}</span>
         </div>
-        <span className="text-xs sm:text-sm font-bold whitespace-nowrap">{count.toLocaleString()}</span>
+        <span className="text-xs sm:text-sm font-poppins font-bold whitespace-nowrap">{count.toLocaleString()}</span>
       </div>
     );
   };
@@ -136,7 +135,7 @@ const LevelStats = () => {
           </ResponsiveContainer>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full">
             <p className="text-[#303030] text-sm">Total Poin</p>
-            <p className="text-primary text-xl font-bold">{totalPoin.toLocaleString()}</p>
+            <p className="text-primary text-xl font-poppins font-bold">{totalPoin.toLocaleString()}</p>
           </div>
         </div>
 

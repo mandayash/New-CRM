@@ -31,7 +31,7 @@ const ConfirmAddModal: React.FC<ConfirmAddModalProps> = ({
           <div className="space-y-2 mb-6">
             <div className="flex items-center justify-center gap-1">
               <div className="text-red-600 text-xl">⚠️</div>
-              <h3 className="text-[#CF0000] text-xl font-medium">Anda yakin ingin menambahkan Hadiah?</h3>
+              <h3 className="text-[#CF0000] text-xl font-bold">Anda yakin ingin menambahkan Hadiah?</h3>
             </div>
             <p className="text-[#303030] text-base">Pastikan data hadiah yang anda masukan sudah sesuai.</p>
           </div>

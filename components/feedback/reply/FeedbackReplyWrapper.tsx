@@ -23,15 +23,30 @@ interface FeedbackDetailProps {
 
 interface FeedbackReplyWrapperProps {
     feedbackData: FeedbackDetailProps;
+    onSubmit?: (data: any) => void; 
+    onSave?: (data: any) => void;   
 }
 
-const FeedbackReplyWrapper = ({ feedbackData }: FeedbackReplyWrapperProps) => {
+const FeedbackReplyWrapper = ({ 
+    feedbackData, 
+    onSubmit,
+    onSave
+}: FeedbackReplyWrapperProps) => {
+    // Handler untuk ReplyForm
     const handleSubmit = (data: any) => {
-        console.log('Submit:', data);
+        if (onSubmit) {
+            onSubmit(data);
+        } else {
+            console.log('Submit form:', data);
+        }
     };
 
     const handleSave = (data: any) => {
-        console.log('Save:', data);
+        if (onSave) {
+            onSave(data);
+        } else {
+            console.log('Save as draft:', data);
+        }
     };
 
     return (

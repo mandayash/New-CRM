@@ -54,6 +54,10 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%
   }
+  .sfPro {
+    font-family: var(--font-sf-pro);
+    letter-spacing: 0.5px;
+  }
 }
 @layer base {
   * {

@@ -28,8 +28,8 @@ const ConfirmEditModal: React.FC<ConfirmEditModalProps> = ({
             <Image 
               src="/images/alert-illustration.png" 
               alt="Petugas"
-              width={120} 
-              height={155}
+              width={150} 
+              height={150}
               className="w-auto h-auto"
             />
           </div>
@@ -37,27 +37,26 @@ const ConfirmEditModal: React.FC<ConfirmEditModalProps> = ({
           {/* Warning Text */}
           <div className="mb-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <AlertTriangle className="text-red-600 w-6 h-6" />
-              <h2 className="text-red-600 text-xl font-medium">
+              <h2 className="text-[#CF0000] text-xl font-bold">
                 Anda yakin ingin mengubah data Hadiah?
               </h2>
             </div>
-            <p className="text-gray-700 text-sm">
+            <p className="text-[#303030] text-sm">
               Pastikan data hadiah yang anda masukan sudah sesuai.
             </p>
           </div>
           
           {/* Action Buttons */}
-          <div className="flex gap-3 mt-2 w-full">
+          <div className="flex gap-3 w-full">
             <Button 
               variant="outline"
-              className="flex-1 px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 border-none"
+              className="flex-1 px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 border-none text-[#303030] text-sm font-medium"
               onClick={onClose}
             >
               Kembali
             </Button>
             <Button 
-              className="flex-1 px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
+              className="flex-1 px-6 py-2 rounded-lg bg-[#CF0000] hover:bg-red-700 text-white text-sm font-medium"
               onClick={onConfirm}
             >
               Ya, Edit

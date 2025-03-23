@@ -24,7 +24,7 @@ const LihatQRModal = ({ isOpen, onClose, qrData }: LihatQRModalProps) => {
         <div className="bg-white flex flex-col items-center justify-center pt-6 pb-4">
           <div className="flex items-center mb-1 text-[#CF0000]">
             <ScanQrCode className="w-5 h-5 text-[#CF0000] mr-2" />
-            <h2 className="text-[#CF0000] text-xl font-medium">Lihat QR</h2>
+            <h2 className="text-[#CF0000] text-xl font-bold">Lihat QR</h2>
           </div>
           <div className="w-full border-t border-dashed border-gray-300 mt-2"></div>
         </div>

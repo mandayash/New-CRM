@@ -104,44 +104,44 @@ const UsersTable = () => {
       <div className="rounded-lg border overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-[100px] text-center py-4">User Id</TableHead>
-              <TableHead className="text-center">Profile</TableHead>
-              <TableHead className="text-center">Nama Pengguna</TableHead>
-              <TableHead className="text-center">Email</TableHead>
-              <TableHead className="text-center">Nomor Telepon</TableHead>
-              <TableHead className="text-center">Total Feedback</TableHead>
-              <TableHead className="text-center">Total Poin</TableHead>
-              <TableHead className="text-center">Level Poin</TableHead>
-              <TableHead className="text-center w-[130px]">Aksi</TableHead>
+            <TableRow className="bg-[#EAEAEA]">
+              <TableHead className="w-[100px] text-[#080808] text-center py-4">User Id</TableHead>
+              <TableHead className="text-center text-[#080808]">Profile</TableHead>
+              <TableHead className="text-center text-[#080808]">Nama Pengguna</TableHead>
+              <TableHead className="text-center text-[#080808]">Email</TableHead>
+              <TableHead className="text-center text-[#080808]">Nomor Telepon</TableHead>
+              <TableHead className="text-center text-[#080808]">Total Feedback</TableHead>
+              <TableHead className="text-center text-[#080808]">Total Poin</TableHead>
+              <TableHead className="text-center text-[#080808]">Level Poin</TableHead>
+              <TableHead className="text-center text-[#080808] w-[130px]">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.map((user) => (
               <TableRow key={user.id} className="hover:bg-gray-50">
-                <TableCell className="font-medium text-center">{user.id}</TableCell>
-                <TableCell className="text-center">
-                  <div className="flex justify-center">
+                <TableCell className="bg-white font-medium text-center">{user.id}</TableCell>
+                <TableCell className="bg-white text-center">
+                  <div className="bg-white flex justify-center">
                     <Image
                       src={user.profileImage}
                       alt={user.name}
                       width={36}
                       height={36}
-                      className="rounded-full"
+                      className="bg-white rounded-full"
                     />
                   </div>
                 </TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell className="text-center font-medium">{user.totalFeedback}</TableCell>
-                <TableCell className="text-center font-medium">{user.totalPoints}</TableCell>
-                <TableCell className="text-center">
-                  <div className="flex justify-center">
+                <TableCell className="bg-white">{user.name}</TableCell>
+                <TableCell className="bg-white">{user.email}</TableCell>
+                <TableCell className="bg-white">{user.phone}</TableCell>
+                <TableCell className="bg-white text-center font-medium">{user.totalFeedback}</TableCell>
+                <TableCell className="bg-white text-center font-medium">{user.totalPoints}</TableCell>
+                <TableCell className="bg-white text-center">
+                  <div className="bg-white flex justify-center">
                     <LevelBadge level={user.level} />
                   </div>
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="bg-white text-center">
                   <Link 
                     href={`/users/${user.id}/history`}
                     className="inline-flex items-center gap-1.5 text-gray-500 hover:text-primary text-sm px-3 py-1.5 border rounded-lg hover:border-primary transition-colors"

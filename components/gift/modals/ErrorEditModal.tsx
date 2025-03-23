@@ -21,13 +21,13 @@ const ErrorEditModal: React.FC<ErrorEditModalProps> = ({
       <DialogContent className="max-w-[400px] p-0 rounded-2xl border-0 shadow-lg bg-white overflow-hidden">
         {/* Konten Modal */}
         <div className="flex flex-col items-center p-6 text-center">
-          {/* Ilustrasi Petugas */}
+          {/* Ilustrasi */}
           <div className="mb-6">
             <Image 
               src="/images/error-feedback.png" 
-              alt="Petugas"
-              width={120} 
-              height={155}
+              alt="Error"
+              width={150} 
+              height={150}
               className="w-auto h-auto"
             />
           </div>
@@ -35,23 +35,25 @@ const ErrorEditModal: React.FC<ErrorEditModalProps> = ({
           {/* Error Text */}
           <div className="mb-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <AlertTriangle className="text-red-600 w-6 h-6" />
-              <h2 className="text-red-600 text-xl font-medium">
+              <AlertTriangle className="text-[#CF0000] w-6 h-6" />
+              <h2 className="text-[#CF0000] text-xl font-bold">
                 Data Hadiah gagal diedit!
               </h2>
             </div>
-            <p className="text-gray-700 text-sm">
+            <p className="text-[#303030] text-sm">
               Mohon periksa koneksi internet Anda dan coba lagi.
             </p>
           </div>
           
           {/* Action Button */}
-          <Button 
-            className="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
-            onClick={onClose}
-          >
-            Coba lagi
-          </Button>
+          <div className="flex w-full">
+            <Button 
+              className="flex-1 px-6 py-2 rounded-lg bg-[#CF0000] hover:bg-[#b50000] text-white text-sm font-medium"
+              onClick={onClose}
+            >
+              Coba lagi
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

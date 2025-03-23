@@ -52,11 +52,11 @@ const LevelSummaryCard = () => {
         <div className="flex items-center gap-5 sm:gap-6 w-full">
           {/* Title Section */}
           <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
-            <div className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 flex items-center justify-center rounded-full bg-red-50 shadow-sm">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 flex items-center justify-center rounded-[8px] bg-[#FCECAC] shadow-sm">
               <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
             </div>
             <div>
-              <p className="text-lg text-primary font-medium text-gray-800">Poin Level</p>
+              <p className="text-lg text-primary font-bold text-gray-800">Poin Level</p>
               <p className="text-xs text-gray-500 hidden sm:block">Statistik Level</p>
             </div>
           </div>

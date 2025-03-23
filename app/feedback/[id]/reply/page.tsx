@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 
 export default function FeedbackReplyDetail() {
   const router = useRouter();
+
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
       {/* Left Section - Message Content */}
@@ -72,7 +73,7 @@ export default function FeedbackReplyDetail() {
       </div>
 
       {/* Right Section - Feedback Detail */}
-      <div className="w-[443px] bg-white rounded-lg p-6">
+      <div className="w-full lg:w-[443px] bg-white rounded-lg p-6">
         <h2 className="font-medium mb-6">Feedback</h2>
         
         <div className="space-y-6">

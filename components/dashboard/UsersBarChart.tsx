@@ -122,8 +122,8 @@ const UsersBarChart: React.FC = () => {
               Total Pengguna Aplikasi
             </CardTitle>
             <div className="mt-1 min-w-0"> 
-              <p className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">1,121</p>
-              <p className="text-xs sm:text-sm text-gray-500 truncate">Total Pengguna</p>
+              <p className="text-xl sm:text-2xl lg:text-3xl font-poppins font-bold truncate">1,121</p>
+              <p className="text-xs sm:text-sm text-gray-500 truncate font-medium">Total Pengguna</p>
             </div>
           </div>
           <select className="w-full sm:w-auto border rounded-lg px-3 py-2 text-xs sm:text-sm bg-white flex-shrink-0">

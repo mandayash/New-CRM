@@ -12,7 +12,10 @@ const config: Config = {
   		fontFamily: {
   			sans: [
   				'var(--sf-pro-display)'
-  			]
+  			],
+			poppins: [
+				'var(--font-poppins)'
+			]
   		},
 		letterSpacing: {
 			sfProDisplay: '0.5px'

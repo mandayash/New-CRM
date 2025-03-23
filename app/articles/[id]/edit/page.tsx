@@ -11,6 +11,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+// Import modals
+import ConfirmEditArticle from '@/components/articles/modals/ConfirmEditArticle';
+import SuccessSaveArticle from '@/components/articles/modals/SuccessSaveArticle';
+import SuccessSendArticle from '@/components/articles/modals/SuccessSendArticle';
+import ErrorSendArticle from '@/components/articles/modals/ErrorSendArticle';
+
 const dummyArticle = {
   id: 'AR-1245',
   date: '2028-02-27 04:28:48',
@@ -30,6 +36,12 @@ export default function EditArticlePage() {
   const [content, setContent] = useState('');
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // State untuk modal
+  const [showConfirmAdd, setShowConfirmAdd] = useState(false);
+  const [showSuccessSave, setShowSuccessSave] = useState(false);
+  const [showSuccessSend, setShowSuccessSend] = useState(false);
+  const [showErrorSend, setShowErrorSend] = useState(false);
 
   useEffect(() => {
     setTitle(dummyArticle.title);
@@ -60,14 +72,65 @@ export default function EditArticlePage() {
     }
   };
 
-  const handleSubmit = (action: 'save' | 'send') => {
+  // Handler untuk tombol Simpan
+  const handleSave = () => {
     if (!title.trim() || !content.trim() || !imagePreview) {
       setErrorMessage('Semua field harus diisi');
       setShowError(true);
       return;
     }
-    console.log(`Article ${action}d:`, { id: params.id, title, content, image: imagePreview });
+    
+    // Simulasi simpan artikel
+    console.log('Saving article:', { id: params.id, title, content, image: imagePreview });
+    
+    // Tampilkan modal sukses simpan
+    setShowSuccessSave(true);
+  };
+
+  // Handler untuk tombol Kirim Artikel
+  const handleSend = () => {
+    if (!title.trim() || !content.trim() || !imagePreview) {
+      setErrorMessage('Semua field harus diisi');
+      setShowError(true);
+      return;
+    }
+    
+    // Tampilkan modal konfirmasi kirim
+    setShowConfirmAdd(true);
+  };
+
+  // Handler untuk konfirmasi kirim artikel
+  const handleConfirmSend = () => {
+    // Tutup modal konfirmasi
+    setShowConfirmAdd(false);
+    
+    // Simulasi API call untuk mengirim artikel
+    console.log('Sending article:', { id: params.id, title, content, image: imagePreview });
+    
+    // Simulasi keberhasilan/kegagalan
+    const isSuccess = true; // Ganti dengan logika nyata untuk cek sukses/gagal
+    
+    if (isSuccess) {
+      // Tampilkan modal sukses kirim
+      setShowSuccessSend(true);
+    } else {
+      // Tampilkan modal error kirim
+      setShowErrorSend(true);
+    }
+  };
+
+  // Handler untuk menutup semua modal dan navigasi
+  const handleSuccessSaveClose = () => {
+    setShowSuccessSave(false);
+  };
+
+  const handleSuccessSendClose = () => {
+    setShowSuccessSend(false);
     router.push('/articles');
+  };
+
+  const handleErrorSendClose = () => {
+    setShowErrorSend(false);
   };
 
   return (
@@ -138,13 +201,13 @@ export default function EditArticlePage() {
 
               <div className="flex flex-col sm:flex-row justify-end gap-3">
                 <button 
-                  onClick={() => handleSubmit('save')} 
+                  onClick={handleSave} 
                   className="px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 order-2 sm:order-1"
                 >
                   Simpan
                 </button>
                 <button 
-                  onClick={() => handleSubmit('send')} 
+                  onClick={handleSend} 
                   className="px-6 py-2 rounded-lg bg-[#CF0000] text-white hover:bg-red-700 order-1 sm:order-2"
                 >
                   Kirim Artikel
@@ -186,7 +249,7 @@ export default function EditArticlePage() {
         </div>
       </div>
 
-      {/* Dialog Error */}
+      {/* Dialog Error Format File */}
       <Dialog open={showError} onOpenChange={setShowError}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -207,6 +270,31 @@ export default function EditArticlePage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Modal Confirmasi Kirim */}
+      <ConfirmEditArticle 
+        isOpen={showConfirmAdd} 
+        onClose={() => setShowConfirmAdd(false)} 
+        onConfirm={handleConfirmSend} 
+      />
+
+      {/* Modal Sukses Simpan */}
+      <SuccessSaveArticle 
+        isOpen={showSuccessSave} 
+        onClose={handleSuccessSaveClose} 
+      />
+
+      {/* Modal Sukses Kirim */}
+      <SuccessSendArticle 
+        isOpen={showSuccessSend} 
+        onClose={handleSuccessSendClose} 
+      />
+
+      {/* Modal Error Kirim */}
+      <ErrorSendArticle 
+        isOpen={showErrorSend} 
+        onClose={handleErrorSendClose} 
+      />
     </div>
   );
 }

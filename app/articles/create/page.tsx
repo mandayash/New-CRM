@@ -3,14 +3,22 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Image as ImageIcon, AlertCircle } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 
+// Import modals
+import ConfirmAddArticle from '@/components/articles/modals/ConfirmAddArticle';
+import SuccessSaveArticle from '@/components/articles/modals/SuccessSaveArticle';
+import SuccessSendArticle from '@/components/articles/modals/SuccessSendArticle';
+import ErrorSendArticle from '@/components/articles/modals/ErrorSendArticle';
+
 export default function CreateArticlePage() {
+  const router = useRouter();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -18,6 +26,12 @@ export default function CreateArticlePage() {
 
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // State untuk modal
+  const [showConfirmAdd, setShowConfirmAdd] = useState(false);
+  const [showSuccessSave, setShowSuccessSave] = useState(false);
+  const [showSuccessSend, setShowSuccessSend] = useState(false);
+  const [showErrorSend, setShowErrorSend] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -47,6 +61,69 @@ export default function CreateArticlePage() {
       setErrorMessage('Format file tidak didukung. Harap upload file dengan format .jpg, .jpeg, atau .png');
       setShowError(true);
     }
+  };
+  
+  // Handler untuk tombol Simpan
+  const handleSave = () => {
+    if (!validateForm()) return;
+    
+    // Simulasi simpan draft artikel
+    console.log('Saving article draft:', { title, content, image: imagePreview });
+    
+    // Tampilkan modal sukses simpan
+    setShowSuccessSave(true);
+  };
+
+  // Handler untuk tombol Kirim Artikel
+  const handleSend = () => {
+    if (!validateForm()) return;
+    
+    // Tampilkan modal konfirmasi kirim
+    setShowConfirmAdd(true);
+  };
+  
+  // Validasi form
+  const validateForm = () => {
+    if (!title.trim() || !content.trim() || !imagePreview) {
+      setErrorMessage('Semua field harus diisi');
+      setShowError(true);
+      return false;
+    }
+    return true;
+  };
+
+  // Handler untuk konfirmasi kirim artikel
+  const handleConfirmSend = () => {
+    // Tutup modal konfirmasi
+    setShowConfirmAdd(false);
+    
+    // Simulasi API call untuk mengirim artikel
+    console.log('Sending article:', { title, content, image: imagePreview });
+    
+    // Simulasi keberhasilan/kegagalan
+    const isSuccess = true; 
+    
+    if (isSuccess) {
+      // Tampilkan modal sukses kirim
+      setShowSuccessSend(true);
+    } else {
+      // Tampilkan modal error kirim
+      setShowErrorSend(true);
+    }
+  };
+  
+  // Handler untuk menutup semua modal dan navigasi
+  const handleSuccessSaveClose = () => {
+    setShowSuccessSave(false);
+  };
+
+  const handleSuccessSendClose = () => {
+    setShowSuccessSend(false);
+    router.push('/articles');
+  };
+
+  const handleErrorSendClose = () => {
+    setShowErrorSend(false);
   };
 
   return (
@@ -118,8 +195,18 @@ export default function CreateArticlePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row justify-end gap-3">
-                <button className="px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 order-2 sm:order-1">Simpan</button>
-                <button className="px-6 py-2 rounded-lg bg-[#CF0000] text-white hover:bg-red-700 order-1 sm:order-2">Kirim Artikel</button>
+                <button 
+                  onClick={handleSave}
+                  className="px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 order-2 sm:order-1"
+                >
+                  Simpan
+                </button>
+                <button 
+                  onClick={handleSend}
+                  className="px-6 py-2 rounded-lg bg-[#CF0000] text-white hover:bg-red-700 order-1 sm:order-2"
+                >
+                  Kirim Artikel
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -157,7 +244,7 @@ export default function CreateArticlePage() {
         </div>
       </div>
 
-      {/* Dialog Error */}
+      {/* Dialog Error Format File */}
       <Dialog open={showError} onOpenChange={setShowError}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -173,6 +260,31 @@ export default function CreateArticlePage() {
           </div>
         </DialogContent>
       </Dialog>
+      
+      {/* Modal Konfirmasi Kirim */}
+      <ConfirmAddArticle 
+        isOpen={showConfirmAdd} 
+        onClose={() => setShowConfirmAdd(false)} 
+        onConfirm={handleConfirmSend} 
+      />
+
+      {/* Modal Sukses Simpan */}
+      <SuccessSaveArticle 
+        isOpen={showSuccessSave} 
+        onClose={handleSuccessSaveClose} 
+      />
+
+      {/* Modal Sukses Kirim */}
+      <SuccessSendArticle 
+        isOpen={showSuccessSend} 
+        onClose={handleSuccessSendClose} 
+      />
+
+      {/* Modal Error Kirim */}
+      <ErrorSendArticle 
+        isOpen={showErrorSend} 
+        onClose={handleErrorSendClose} 
+      />
     </div>
   );
 }

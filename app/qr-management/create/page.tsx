@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Download } from "lucide-react";
-import Image from "next/image";
-import ConfirmAddQRModal from "@/components/qr-management/ConfirmAddQRModal"
-import SuccessAddQRModal from "@/components/qr-management/SuccessAddQRModal";
-import ErrorAddQRModal from "@/components/qr-management/ErrorAddQRModal"
+import InputStation from "@/components/qr-management/InputStation";
+import QRCodePreview from "@/components/qr-management/QRCodePreview";
+import ConfirmAddQRModal from "@/components/qr-management/modals/ConfirmAddQRModal";
+import SuccessAddQRModal from "@/components/qr-management/modals/SuccessAddQRModal";
+import ErrorAddQRModal from "@/components/qr-management/modals/ErrorAddQRModal";
 
 export default function TambahQRPage() {
   const [stationName, setStationName] = useState("");
@@ -20,16 +20,14 @@ export default function TambahQRPage() {
   const generateQRCode = () => {
     if (!stationName.trim()) return;
     
-    // For demonstration purposes, we'll simulate the QR code generation
-    // In a real app, you would integrate with a QR code generation library or API
-    setQrCode("/sample-qr-code.png");
+    setQrCode("/public/images/sample-qr-code.png");
   };
   
   // Handle when station name changes
-  const handleStationNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStationName(e.target.value);
+  const handleStationNameChange = (value: string) => {
+    setStationName(value);
     // Optionally, regenerate QR code as user types
-    if (e.target.value.trim()) {
+    if (value.trim()) {
       generateQRCode();
     } else {
       setQrCode(null);
@@ -47,13 +45,6 @@ export default function TambahQRPage() {
     setIsConfirmModalOpen(false);
     
     try {
-      // Simulate API call to add QR
-      // const response = await fetch('/api/qr', {
-      //   method: 'POST',
-      //   body: JSON.stringify({ stationName, qrCode }),
-      //   headers: { 'Content-Type': 'application/json' }
-      // });
-      
       // For demonstration, simulate success most of the time
       const success = Math.random() > 0.2;
       
@@ -105,63 +96,17 @@ export default function TambahQRPage() {
         <h2 className="text-xl font-medium mb-6">Tambah QR</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left side - Input */}
-          <div>
-            <div className="mb-4">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="flex items-center justify-center w-5 h-5 bg-[#CF0000] text-white rounded-full text-xs">1</div>
-                <label htmlFor="station-name" className="text-sm font-medium">
-                  Masukan Nama Stasiun*
-                </label>
-              </div>
-              <input
-                id="station-name"
-                type="text"
-                value={stationName}
-                onChange={handleStationNameChange}
-                placeholder="Masukan Nama Stasiun"
-                className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-100"
-              />
-            </div>
-          </div>
+          {/* Left side - Input Station Component */}
+          <InputStation 
+            stationName={stationName} 
+            onChange={handleStationNameChange} 
+          />
           
-          {/* Right side - QR Code result */}
-          <div>
-            <div className="mb-4">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="flex items-center justify-center w-5 h-5 bg-[#CF0000] text-white rounded-full text-xs">2</div>
-                <label className="text-sm font-medium">
-                  Hasil QR
-                </label>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-6 flex flex-col items-center">
-                {qrCode ? (
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="w-32 h-32">
-                      <Image 
-                        src="/sample-qr-code.png" 
-                        alt="QR Code"
-                        width={128}
-                        height={128}
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <button
-                      onClick={handleDownloadQR}
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors"
-                    >
-                      <Download className="w-4 h-4" />
-                      Download QR
-                    </button>
-                  </div>
-                ) : (
-                  <div className="w-32 h-32 border-2 border-dashed border-gray-300 flex items-center justify-center">
-                    <span className="text-gray-400 text-sm">QR Code</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          {/* Right side - QR Code Preview Component */}
+          <QRCodePreview 
+            qrCode={qrCode} 
+            onDownload={handleDownloadQR} 
+          />
         </div>
         
         {/* Buttons */}

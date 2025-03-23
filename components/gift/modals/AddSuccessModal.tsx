@@ -31,7 +31,7 @@ const AddSuccessModal: React.FC<SuccessModalProps> = ({
           />
           
           <div className="space-y-2 mb-6">
-            <h3 className="text-[#CF0000] text-xl font-medium">{title}</h3>
+            <h3 className="text-[#CF0000] text-xl font-bold">{title}</h3>
             <p className="text-[#303030] text-base">{message}</p>
           </div>
           
